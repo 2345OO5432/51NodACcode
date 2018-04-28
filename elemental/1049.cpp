@@ -10,7 +10,23 @@
 using namespace std;
 typedef long long ll;
 
-ll maxsum( int A[], int low, int high ){
+ll maxsum( int A[], int N ){
+	ll maxSum = A[0];
+    ll lastSum = A[0], curSum;
+	for ( int i = 1; i != N; ++i ){
+		if (lastSum >0){
+			curSum = lastSum + A[i];
+		}
+		else {
+			curSum = A[i];
+		}
+		if (curSum > maxSum){
+			maxSum = curSum;
+		}
+		lastSum = curSum;
+	}
+	return maxSum;
+#if 0
 	if (high == low + 1){
 		return A[low];
 	}
@@ -28,6 +44,7 @@ ll maxsum( int A[], int low, int high ){
 		}
 		return max(max(tmp, maxsum(A, low, mid)), maxsum(A, mid, high));
 	}
+#endif
 }
 
 int main(){
@@ -37,8 +54,8 @@ int main(){
 	for (int i = 0; i != N; ++i){
 		cin >> A[i];
 	}
-	ll result = maxsum(A, 0, N);
-	cout << (result > 0 ? result : 0) <<endl;
+	ll result = maxsum(A, N);
+	cout << result <<endl;
 	return 0;
 }
 
